@@ -38,7 +38,7 @@ HTTP 헤더 필드는 크게 4종류로 분류된다.
 
 - ##### Cache-Control
 
-  : Cache-Control 헤더는 디렉티브로 물리는 명령을 사용하여 캐싱 동작을 지정합니다.
+  : Cache-Control 헤더는 디렉티브라 불리는 명령을 사용하여 캐싱 동작을 지정합니다.
 
   - **Cache-Control: public**
 
@@ -76,7 +76,7 @@ HTTP 헤더 필드는 크게 4종류로 분류된다.
 
   : Connection 헤더 필드는 프록시에 더 이상 접속하지 않는 헤더 필드를 지정하고 지속적 접속을 관리합니다.
 
-  `Connection: Upgrade` 는 Upgrade 헤더 필드를 더 이상 프록시에 전달하지 말라는 뜻입니다.
+  ex) `Connection: Upgrade` 는 Upgrade 헤더 필드를 더 이상 프록시에 전달하지 말라는 뜻입니다.
 
   또, HTTP/1.1 에서는 지속접 접속이 디폴트로 되어있어서 `Connection: Close` 를 통해 지속적 접속을 끊을 수 있습니다.
 
@@ -103,3 +103,84 @@ HTTP 헤더 필드는 크게 4종류로 분류된다.
   : Via 헤더 필드는 클라이언트와 서버 간의 리퀘스트 혹은 리스폰스 메시지의 경로를 알기 위해서 사용됩니다.
 
    
+
+### 4) 리퀘스트 헤더 필드
+
+- ##### Accept
+
+  : Accept 헤더 필드는 유저 에이전트에 처리할 수 있는 미디어 타입과 미디어 타입의 상대적인 우선 순위를 전달하기 위해서 사용됩니다. 
+
+  `Accept: text/html, text/plain, text/css, image/jpeg, video/mpeg`
+
+- ##### Accept-Charset
+
+  : Accept-Charset 헤더 필드는 유저 에이전트에서 처리할 수 있는 문자셋으로, 문자셋의 상대적인 우선 순위를 전달하기 위해서 사용됩니다. 한 번에 여러 개를 지정할 수 있고, 상대적 우선 순위를 표시해 서버 구동형 네고시에이션에 이용됩니다.
+
+  `Accept-Charset: iso-8859-5, unicode-1-1:q+0.8`
+
+- ##### Accept-Encoding
+
+  : Accept-Encoding 헤더 필드는 유저 에이전트가 처리할 수 있는 콘텐츠 코딩과 콘텐츠 코딩의 상대적인 우선 순위를 전달하기 위해서 사용됩니다. 
+
+  `Accept-Encoding: gzip, deflate`
+
+- ##### Accept-Language
+
+  : Accept-Language 헤더 필드는 유저 에이전트가 처리할 수 있는 자연어의 세트와 상대적인 우선 순위를 전달하기 위해서 사용됩니다.
+
+  `Accept-Language: ko-kr, en-us;q=0.7,en;q=0.3`
+
+- ##### Authorization
+
+  : Authorization 헤더 필드는 유저 에이전트의 인증 정보를 전달하기 위해서 사용됩니다.
+
+- ##### Expect
+
+  : Expect 헤더 필드는 클라이언트가 서버에 특정 동작 요구를 전달하기 위해서 사용합니다. 기대하고 있는 요구에 서버가 응답하지 못해서 에러가 발생하는 경우에는 `417 Expectation Failed`를 반환합니다.
+
+- ##### From
+
+  : From 헤더 필드는 유저 에이전트를 사용하고 있는 유저의 메일 주소를 전달합니다. 기본적으로는 검색 엔진 등의 에이전트 책임자에게 연락처 메일 주소를 나타내는 목적으로 사용됩니다. ( 무슨 일 있으면 여기로 연락하라고 클라이언트가 보내는 것 ! )
+
+- ##### Host
+
+  : Host 헤더 필드는 리퀘스트한 리소스의 인터넷 호스트와 포트 번호를 전달합니다. **HTTP/1.1 에서 유일한 필수 헤더 필드로 가상 호스트 구조 때문에 항상 필요합니다.**
+
+- ##### If-Match
+
+  : If-Match 헤더 필드는 조건부 리퀘스트의 하나로 서버 상의 리소스를 특정 하기 위해서 엔티티 태그 값을 전달합니다. If-Match 필드 값과 리소스의 엔티티 태그 값이 일치한 경우에만 리퀘스트를 받아들일 수 있습니다.
+
+- ##### If-Modified-Since
+
+  : If-Modified-Since 헤더 필드는 필드 값에 지정된 날짜 이후에 갱신된 리소스라면 서버에서 리퀘스트를 받아들입니다.
+
+- ##### If-None-Match
+
+  : If-None-Match 헤더 필드는 조건부 리퀘스트의 하나로 If-Match 헤더 필드와 반대로 동작합니다.
+
+- ##### If-Range
+
+  : If-Range 헤더 필드는 조건부 리퀘스트의 하나로 If-Range로 지정한 필드값과 지정한 리소스의 ETag 값 혹은 날짜가 일치하면 Range 리퀘스트로서 처리하고 싶다는 것을 전달합니다.
+
+  `GET / If-Match: "123456" Range: 5001-10000` 는 "123456" ETag 값과 일치하는 리소스의 5001-10000 범위를 주세요! 라는 뜻이다.
+
+- ##### If-Unmodified-Since
+
+  : If-Unmodified-Since 헤더 필드는 If-Modified-Since 헤더 필드와 반대로 동작합니다.
+
+- ##### Max-Forwards
+
+  : Max-Forwards 헤더 필드는 TRACE 혹은 OPTIONS 메소드에 의한 리퀘스트를 할 때에 전송해도 좋은 서버 수의 최대치를 저장합니다.
+
+- ##### Proxy-Authorization
+
+  : Proxy-Authorization 헤더 필드는 프록시 서버에서의 인증 요구를 받아들인 때에 인증에 필요한 클라이언트의 정보를 전달합니다.
+
+- ##### Range
+
+  : Range 헤더 필드는 리소스의 일부분만 취득한 Range 리퀘스트를 할 때 지정 범위를 전달합니다.
+
+  
+
+  
+
