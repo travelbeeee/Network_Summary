@@ -15,7 +15,7 @@
 - 인터넷 계층 - IP
 - 링크 계층 - LAN 장비
 
-![네트워크01](https://user-images.githubusercontent.com/59816811/113543941-5986e800-9622-11eb-83ea-c98fd0527a7f.png)
+<img src="https://user-images.githubusercontent.com/59816811/113543941-5986e800-9622-11eb-83ea-c98fd0527a7f.png" alt="네트워크01" style="zoom:67%;" />
 
 채팅 프로그램(애플리케이션) 에서 "Hello" 라는 메시지를 다른 컴퓨터에게 보냄.
 
